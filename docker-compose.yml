@@ -1,13 +1,19 @@
+version: "3.9"
 services:
-
-  app:
-    image: workshop-organizer
+  backend:
+    build: .
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/workshopsdb"
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/workshopsdb
       SPRING_DATASOURCE_USERNAME: workshops_user
       SPRING_DATASOURCE_PASSWORD: oc2024
+    depends_on:
+      - db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      retries: 5
 
   db:
     image: postgres:13
@@ -15,3 +21,10 @@ services:
       POSTGRES_USER: workshops_user
       POSTGRES_PASSWORD: oc2024
       POSTGRES_DB: workshopsdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
