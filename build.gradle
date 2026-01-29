@@ -1,6 +1,6 @@
 plugins {
 	id 'org.openapi.generator' version '7.4.0'
-	id 'org.springframework.boot' version '3.2.4'
+	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.4'
 	id 'java'
 	id 'maven-publish'
@@ -15,11 +15,15 @@ repositories {
 }
 
 sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java', 'src/main/java-generated']
-        }
-    }
+	main {
+		java {
+			srcDirs = [
+				'src/main/java',
+				'src/main/java-generated',
+				"$buildDir/generate-resources/src/main/java-generated"
+			]
+		}
+	}
 }
 
 dependencies {
