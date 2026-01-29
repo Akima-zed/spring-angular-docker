@@ -15,12 +15,11 @@ repositories {
 }
 
 sourceSets {
-	main {
-		java {
-			srcDirs 'src/main/java'
-			srcDirs 'src/main/java-generated'
-		}
-	}
+    main {
+        java {
+            srcDirs = ['src/main/java', 'src/main/java-generated']
+        }
+    }
 }
 
 dependencies {
@@ -47,19 +46,19 @@ processResources {
 }
 
 openApiGenerate {
-	generatorName = "spring"
-	inputSpec = "$rootDir/src/main/resources/specs/openapi.yaml".toString()
-	apiPackage = "fr.oc.devops.backend"
-	modelPackage = "fr.oc.devops.backend.models"
-	configOptions = [
-			dateLibrary: "java8",
-			interfaceOnly: "true",
-			skipDefaultInterface: "true",
-			useSpringBoot3: "true",
-			library: 'spring-boot',
-			openApiNullable: 'true',
-			sourceFolder: "../../../src/main/java-generated".toString()
-	]
+    generatorName = "spring"
+    inputSpec = "$rootDir/src/main/resources/specs/openapi.yaml"
+    apiPackage = "fr.oc.devops.backend"
+    modelPackage = "fr.oc.devops.backend.models"
+    configOptions = [
+        dateLibrary: "java8",
+        interfaceOnly: "true",
+        skipDefaultInterface: "true",
+        useSpringBoot3: "true",
+        library: 'spring-boot',
+        openApiNullable: 'true',
+        sourceFolder: "../src/main/java-generated"
+    ]
 }
 
 compileJava.dependsOn tasks.openApiGenerate
