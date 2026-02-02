@@ -1,3 +1,6 @@
+# Fichiers à ignorer lors du build Docker
+# Réduit la taille du contexte et accélère le build
+
 .gradle
 build
 .git
