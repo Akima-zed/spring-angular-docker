@@ -11,3 +11,8 @@ docker-compose.yml
 *.log
 .env
 README.md
+node_modules
+test-results
+.github
+k8s
+db

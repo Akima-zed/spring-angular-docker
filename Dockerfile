@@ -14,11 +14,11 @@ COPY settings.gradle .
 # Copie le code source
 COPY src ./src
 
-# Donne les droits d'exécution au script Gradle
-RUN chmod +x gradlew
+# Donne les droits d'exécution et convertit les fins de ligne CRLF → LF
+RUN chmod +x gradlew && sed -i 's/\r$//' gradlew
 
 # Compile le projet → Crée un fichier .jar dans build/libs/
-RUN ./gradlew build --no-daemon
+RUN ./gradlew clean bootJar --no-daemon --stacktrace && ls -la build/libs/
 
 # Étape 2 : Exécuter l'application Image finale
 # Utilise JRE 21 Le .jar est déjà compilé → On a juste besoin de l'exécuter → JRE suffit)
