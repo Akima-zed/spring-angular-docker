@@ -1,0 +1,10 @@
+.gradle
+build
+.git
+.gitignore
+.openapi-generator-ignore
+Dockerfile
+docker-compose.yml
+*.log
+.env
+README.md

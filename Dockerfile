@@ -1,17 +1,12 @@
 # Étape 1 : build
-FROM eclipse-temurin:21-jdk AS build
+FROM gradle:8-jdk21 AS build
 WORKDIR /app
-COPY gradlew .
-COPY gradle ./gradle
-COPY build.gradle .
-COPY settings.gradle .
-COPY src ./src
-RUN chmod +x gradlew
-RUN ./gradlew build --no-daemon
+COPY . .
+RUN gradle build --no-daemon -x test
 
 # Étape 2 : exécution
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/build/libs/workshop-organizer-*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
